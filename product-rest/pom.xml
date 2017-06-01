@@ -7,12 +7,37 @@
   <packaging>war</packaging>
   <build>
     <finalName>product-rest</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly-swarm}</version>
+        <configuration>
+          <fractionDetectMode>force</fractionDetectMode>
+          <properties>
+            <swarm.http.port>8081</swarm.http.port>
+          </properties>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <dependencies>
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>keycloak</artifactId>
+      <version>${version.wildfly-swarm}</version>
     </dependency>
   </dependencies>
   <dependencyManagement>
@@ -30,5 +55,6 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.wildfly-swarm>2017.3.3</version.wildfly-swarm>
   </properties>
 </project>
