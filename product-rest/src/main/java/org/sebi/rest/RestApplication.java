@@ -1,20 +1,8 @@
 package org.sebi.rest;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Application;
+import javax.ws.rs.ApplicationPath;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-
-@Path("/products")
-public class ProductEndpoint {
-
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<String> doGet() {
-		return Arrays.asList("iPad","iPod","iPhone");
-	}
+@ApplicationPath("/rest")
+public class RestApplication extends Application {
 }
