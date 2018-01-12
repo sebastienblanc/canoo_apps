@@ -16,7 +16,6 @@
  */
 
 var module = angular.module('product', []);
-
 var auth = {};
 var logout = function(){
     console.log('*** LOGOUT');
@@ -33,25 +32,27 @@ angular.element(document).ready(function ($http) {
     keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
         auth.loggedIn = true;
         auth.authz = keycloakAuth;
+
         module.factory('Auth', function() {
             return auth;
         });
         angular.bootstrap(document, ["product"]);
     }).error(function () {
-            window.location.reload();
-        });
+
+    });
 
 });
 
 module.controller('GlobalCtrl', function($scope, $http, Auth) {
     $scope.products = [];
     $scope.reloadData = function() {
-        $http.get("http://localhost:8081/product-rest/rest/products").success(function(data) {
+        $http.get("http://localhost:9090/products").success(function(data) {
             $scope.products = angular.fromJson(data);
 
         });
 
     };
+
 });
 
 
@@ -66,8 +67,8 @@ module.factory('authInterceptor', function($q, Auth) {
 
                     deferred.resolve(config);
                 }).error(function() {
-                        deferred.reject('Failed to refresh token');
-                    });
+                    deferred.reject('Failed to refresh token');
+                });
             }
             return deferred.promise;
         }
@@ -80,7 +81,6 @@ module.factory('authInterceptor', function($q, Auth) {
 module.config(function($httpProvider) {
     $httpProvider.responseInterceptors.push('errorInterceptor');
     $httpProvider.interceptors.push('authInterceptor');
-
 });
 
 module.factory('errorInterceptor', function($q) {
@@ -106,3 +106,4 @@ module.factory('errorInterceptor', function($q) {
         });
     };
 });
+

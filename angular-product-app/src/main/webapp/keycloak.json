@@ -1,0 +1,7 @@
+{
+  "realm": "devoxx",
+  "auth-server-url": "http://localhost:8180/auth",
+  "ssl-required": "external",
+  "resource": "product-web",
+  "public-client": true
+}
